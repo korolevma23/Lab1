@@ -1,5 +1,7 @@
 package com.example.korolev.domain
 
+import com.example.korolev.data.PolynomialInputParser
+import com.example.korolev.data.PolynomialResultFormatter
 import kotlin.random.Random
 
 object PolynomialMath {
@@ -31,9 +33,7 @@ object PolynomialMath {
     fun sum(first: List<Double>, second: List<Double>): List<Double> {
         val size = maxOf(first.size, second.size)
         val indexes = 0 until size
-        return indexes.map { index ->
-            coefficientAt(first, index) + coefficientAt(second, index)
-        }
+        return indexes.map { index -> coefficientAt(first, index) + coefficientAt(second, index) }
     }
 
     private fun coefficientAt(coefficients: List<Double>, index: Int): Double {
@@ -41,5 +41,21 @@ object PolynomialMath {
             return coefficients[index]
         }
         return 0.0
+    }
+
+    fun sumFromText(text: String): String? {
+        val polynomials = PolynomialInputParser.parse(text)
+        if (polynomials.size < 2) {
+            return null
+        }
+
+        val first = polynomials[0]
+        val second = polynomials[1]
+        if (first.isEmpty() || second.isEmpty()) {
+            return null
+        }
+
+        val result = sum(first, second)
+        return PolynomialResultFormatter.formatPolynomial(result)
     }
 }
