@@ -1,20 +1,32 @@
 package com.example.korolev
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.korolev.data.PolynomialResultFormatter
+import com.example.korolev.domain.PolynomialMath
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var etPolynomials: EditText
+    private lateinit var tvResult: TextView
+    private lateinit var btnSum: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        etPolynomials = findViewById(R.id.etPolynomials)
+        tvResult = findViewById(R.id.tvResult)
+        btnSum = findViewById(R.id.btnSum)
+
+        etPolynomials.setText(PolynomialResultFormatter.formatInput(PolynomialMath.generateRandomPolynomials()))
+
+        btnSum.setOnClickListener {
+            tvResult.text = PolynomialMath.sumFromText(etPolynomials.text.toString())
+                ?: getString(R.string.invalid_input_message)
         }
     }
 }

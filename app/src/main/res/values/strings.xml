@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Lab1</string>
+    <string name="app_name">PolynomialSum</string>
+    <string name="input_label">Сгенерированные полиномы (по одному на строку, коэффициенты от x^0 до x^n через запятую, можно отредактировать):</string>
+    <string name="input_hint">Коэффициенты через запятую, каждый полином на своей строке</string>
+    <string name="sum_button">Сложить полиномы</string>
+    <string name="result_label">Результат:</string>
+    <string name="invalid_input_message">Нужно ввести два полинома (по одному на строку) с корректными коэффициентами</string>
 </resources>
